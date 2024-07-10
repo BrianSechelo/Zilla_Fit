@@ -1,10 +1,6 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="SignUp.aspx.cs" Inherits="SignUp" %>
+﻿<%@ Page Title="Sign Up" Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="SignUp.aspx.cs" Inherits="SignUp" %>
 
-<!DOCTYPE html>
-
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Sign Up</title>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -95,38 +91,36 @@
             }
         }
     </script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="container">
-            <div class="signup-container">
-                <h2>Sign Up</h2>
-                <asp:Label ID="lblName" runat="server" Text="Name:"></asp:Label>
-                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+</asp:Content>
 
-                <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
-                <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container">
+        <div class="signup-container">
+            <h2>Sign Up</h2>
+            <asp:Label ID="lblName" runat="server" Text="Name:"></asp:Label>
+            <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
 
-                <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
-                <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
+            <asp:Label ID="lblEmail" runat="server" Text="Email:"></asp:Label>
+            <asp:TextBox ID="txtEmail" runat="server"></asp:TextBox>
 
-                <asp:Label ID="lblTrainer" runat="server" Text="Trainer?"></asp:Label>
-                <asp:DropDownList ID="ddlTrainer" runat="server" CssClass="dropdownlist">
-                    <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
-                    <asp:ListItem Text="No" Value="No"></asp:ListItem>
-                </asp:DropDownList>
+            <asp:Label ID="lblPassword" runat="server" Text="Password:"></asp:Label>
+            <asp:TextBox ID="txtPassword" runat="server" TextMode="Password"></asp:TextBox>
 
-                <asp:Label ID="lblProfileImage" runat="server" Text="Profile Image:"></asp:Label>
-                <asp:FileUpload ID="fuProfileImage" runat="server" OnChange="previewImage(this)" />
+            <asp:Label ID="lblTrainer" runat="server" Text="Trainer?"></asp:Label>
+            <asp:DropDownList ID="ddlTrainer" runat="server" CssClass="dropdownlist">
+                <asp:ListItem Text="Yes" Value="Yes"></asp:ListItem>
+                <asp:ListItem Text="No" Value="No"></asp:ListItem>
+            </asp:DropDownList>
 
-                <asp:Button ID="btnSubmit" runat="server" Text="Sign Up" CssClass="btn-submit" OnClick="btnSubmit_Click" />
-                <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"></asp:Label>
-                <asp:Label ID="lblId" runat="server" CssClass="id" Visible="False"></asp:Label>
-            </div>
-            <div class="preview-container">
-                <asp:Image ID="imagePreview" runat="server" src="#" alt="Image Preview" />
-            </div>
+            <asp:Label ID="lblProfileImage" runat="server" Text="Profile Image:"></asp:Label>
+            <asp:FileUpload ID="fuProfileImage" runat="server" OnChange="previewImage(this)" />
+
+            <asp:Button ID="btnSubmit" runat="server" Text="Sign Up" CssClass="btn-submit" OnClick="btnSubmit_Click" />
+            <asp:Label ID="lblMessage" runat="server" Text="" CssClass="message"></asp:Label>
+            <asp:Label ID="lblId" runat="server" CssClass="id" Visible="False"></asp:Label>
         </div>
-    </form>
-</body>
-</html>
+        <div class="preview-container">
+            <asp:Image ID="imagePreview" runat="server" src="#" alt="Image Preview" />
+        </div>
+    </div>
+</asp:Content>

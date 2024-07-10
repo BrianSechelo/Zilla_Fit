@@ -1,12 +1,10 @@
-﻿<%@ Page Language="C#" AutoEventWireup="true" CodeFile="TrainerPanel.aspx.cs" Inherits="TrainerPanel" %>
+﻿<%@ Page Language="C#" MasterPageFile="~/Site.master" AutoEventWireup="true" CodeFile="TrainerPanel.aspx.cs" Inherits="TrainerPanel" %>
 
-<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head runat="server">
-    <title>Trainer Panel</title>
+<asp:Content ID="Content1" ContentPlaceHolderID="HeadContent" runat="server">
     <style>
         .container {
-            width: 300px;
+            width: 80%;
+            max-width: 600px;
             margin: 100px auto;
             padding: 20px;
             border: 1px solid #ccc;
@@ -22,8 +20,8 @@
             text-align: center;
         }
         .profile-container img {
-            max-width: 200px; /* Set the maximum width */
-            max-height: 200px; /* Set the maximum height */
+            max-width: 200px;
+            max-height: 200px;
             border-radius: 50%;
         }
         .form-group {
@@ -88,44 +86,42 @@
             }
         }
     </script>
-</head>
-<body>
-    <form id="form1" runat="server">
-        <div class="container">
-            <div class="profile-container">
-                <asp:Image ID="imgProfile" runat="server" />
-                <div class="form-group">
-                    <asp:FileUpload ID="fuProfileImage" runat="server" />
-                </div>
-                <asp:Button ID="btnUpdateProfileImage" runat="server" Text="Update Profile Image" CssClass="btn-submit" OnClick="btnUpdateProfileImage_Click" />
-            </div>
+</asp:Content>
 
-            <h2>Add Fitness Type</h2>
-            <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+<asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+    <div class="container">
+        <div class="profile-container">
+            <asp:Image ID="imgProfile" runat="server" />
             <div class="form-group">
-                <label for="txtName">Fitness Type Name:</label>
-                <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+                <asp:FileUpload ID="fuProfileImage" runat="server" />
             </div>
-            <div class="form-group">
-                <label for="txtDescription">Description:</label>
-                <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
-            </div>
-            <div class="form-group">
-                <label for="txtPricePerSession">Price Per Session:</label>
-                <asp:TextBox ID="txtPricePerSession" runat="server"></asp:TextBox>
-            </div>
-            <asp:Button ID="btnAddFitnessType" runat="server" Text="Add Fitness Type" CssClass="btn" OnClick="btnAddFitnessType_Click" />
-            <h2>Fitness Types</h2>
-            <asp:Repeater ID="rptFitnessTypes" runat="server" OnItemCommand="rptFitnessTypes_ItemCommand">
-                <ItemTemplate>
-                    <div class="fitness-type">
-                        <h4><%# Eval("Name") %> - <%# Eval("Description") %> - $<%# Eval("PricePerSession") %></h4>
-                        <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandArgument='<%# Eval("Id") %>' OnClick="btnUpdate_Click" CssClass="btn-update" />
-                        <asp:Button ID="btnDelete" runat="server" Text="Delete" CommandArgument='<%# Eval("Id") %>' OnClick="btnDelete_Click" CssClass="btn-delete" />
-                    </div>
-                </ItemTemplate>
-            </asp:Repeater>
+            <asp:Button ID="btnUpdateProfileImage" runat="server" Text="Update Profile Image" CssClass="btn-submit" OnClick="btnUpdateProfileImage_Click" />
         </div>
-    </form>
-</body>
-</html>
+
+        <h2>Add Fitness Type</h2>
+        <asp:Label ID="lblMessage" runat="server" ForeColor="Red"></asp:Label>
+        <div class="form-group">
+            <label for="txtName">Fitness Type Name:</label>
+            <asp:TextBox ID="txtName" runat="server"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="txtDescription">Description:</label>
+            <asp:TextBox ID="txtDescription" runat="server" TextMode="MultiLine"></asp:TextBox>
+        </div>
+        <div class="form-group">
+            <label for="txtPricePerSession">Price Per Session:</label>
+            <asp:TextBox ID="txtPricePerSession" runat="server"></asp:TextBox>
+        </div>
+        <asp:Button ID="btnAddFitnessType" runat="server" Text="Add Fitness Type" CssClass="btn" OnClick="btnAddFitnessType_Click" />
+        <h2>Fitness Types</h2>
+        <asp:Repeater ID="rptFitnessTypes" runat="server" OnItemCommand="rptFitnessTypes_ItemCommand">
+            <ItemTemplate>
+                <div class="fitness-type">
+                    <h4><%# Eval("Name") %> - <%# Eval("Description") %> - Kshs.<%# Eval("PricePerSession") %></h4>
+                    <asp:Button ID="btnUpdate" runat="server" Text="Update" CommandArgument='<%# Eval("Id") %>' OnClick="btnUpdate_Click" CssClass="btn-update" />
+                    <asp:Button ID="btnDelete" runat="server" Text="Delete" CommandArgument='<%# Eval("Id") %>' OnClick="btnDelete_Click" CssClass="btn-delete" />
+                </div>
+            </ItemTemplate>
+        </asp:Repeater>
+    </div>
+</asp:Content>

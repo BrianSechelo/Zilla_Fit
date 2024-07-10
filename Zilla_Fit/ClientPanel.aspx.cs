@@ -9,7 +9,7 @@ using System.Web.UI.WebControls;
 
 public partial class ClientPanel : System.Web.UI.Page
 {
-    SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-IVHRL9V\SQLEXPRESS;Initial Catalog=fitnessdb;Integrated Security=True;Pooling=False;Encrypt=False");
+    SqlConnection Con = new SqlConnection(@"Server=sql.bsite.net\MSSQL2016;Database=briansechelo_;User Id=briansechelo_;password=Topverbalist7;Integrated Security=False" );
 
     protected void Page_Load(object sender, EventArgs e)
     {
@@ -17,6 +17,20 @@ public partial class ClientPanel : System.Web.UI.Page
         {
             LoadFitnessTypes();
             LoadClientProfile();
+        }
+        Button loginButton = FindControlRecursive(Master, "btnLogin") as Button;
+        Button rigesterButton = FindControlRecursive(Master, "btnRegister") as Button;
+        if (loginButton != null)
+        {
+            loginButton.Text = "Log Out";
+           
+            rigesterButton.Visible = false;
+        }
+        else
+        {
+            // For debugging purposes
+            lblMessage.Text = "Login button not found!";
+            lblMessage.ForeColor = System.Drawing.Color.Red;
         }
     }
 
@@ -56,7 +70,7 @@ public partial class ClientPanel : System.Web.UI.Page
         {
             Con.Open();
             // Get client and fitness type details
-            string query = "SELECT u.Name as ClientName, ft.Name as FitnessType, ft.TrainerId, t.Name as TrainerName " +
+            string query = "SELECT u.Name as ClientName, ft.Name as FitnessType, ft.PricePerSession, ft.TrainerId, t.Name as TrainerName " +
                            "FROM Users u, FitnessTypes ft, Users t " +
                            "WHERE u.Id = @ClientId AND ft.Id = @FitnessTypeId AND ft.TrainerId = t.Id";
             SqlCommand cmd = new SqlCommand(query, Con);
@@ -68,6 +82,7 @@ public partial class ClientPanel : System.Web.UI.Page
             {
                 string clientName = reader["ClientName"].ToString();
                 string fitnessType = reader["FitnessType"].ToString();
+                decimal pricePerSession = Convert.ToDecimal(reader["PricePerSession"]);
                 int trainerId = Convert.ToInt32(reader["TrainerId"]);
                 string trainerName = reader["TrainerName"].ToString();
 
@@ -84,8 +99,11 @@ public partial class ClientPanel : System.Web.UI.Page
                 cmd.Parameters.AddWithValue("@FitnessType", fitnessType);
                 cmd.ExecuteNonQuery();
 
-                lblMessage.Text = "Enrolled successfully!";
-                lblMessage.ForeColor = System.Drawing.Color.Green;
+                // Store the selected fitness type and price in session
+                Session["FitnessTypeId"] = fitnessTypeId;
+                Session["FitnessTypeName"] = fitnessType;
+                Session["FitnessTypePrice"] = pricePerSession;
+
                 Response.Redirect("Checkout.aspx");
             }
             else
@@ -107,6 +125,8 @@ public partial class ClientPanel : System.Web.UI.Page
             }
         }
     }
+
+
 
     private void LoadClientProfile()
     {
@@ -189,6 +209,16 @@ public partial class ClientPanel : System.Web.UI.Page
             lblMessage.ForeColor = System.Drawing.Color.Red;
             return -1; // Return an invalid ID or handle as needed
         }
+    }
+    private Control FindControlRecursive(Control root, string id)
+    {
+        if (root.ID == id) return root;
+        foreach (Control control in root.Controls)
+        {
+            Control foundControl = FindControlRecursive(control, id);
+            if (foundControl != null) return foundControl;
+        }
+        return null;
     }
 
     protected void rptFitnessTypes_ItemCommand(object source, RepeaterCommandEventArgs e)

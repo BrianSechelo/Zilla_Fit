@@ -10,7 +10,7 @@ using System.Runtime.Remoting.Messaging;
 
 public partial class Login : System.Web.UI.Page
 {
-    SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-IVHRL9V\SQLEXPRESS;Initial Catalog=fitnessdb;Integrated Security=True;Pooling=False;Encrypt=False");
+    SqlConnection Con = new SqlConnection(@"Server=sql.bsite.net\MSSQL2016;Database=briansechelo_;User Id=briansechelo_;password=Topverbalist7;Integrated Security=False" );
 
     protected void Page_Load(object sender, EventArgs e)
     {

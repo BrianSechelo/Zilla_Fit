@@ -1,5 +1,5 @@
 ﻿<%@ Master Language="C#" AutoEventWireup="true" CodeFile="Site.master.cs" Inherits="SiteMaster" %>
-
+<%@ Register TagPrefix="webopt" Namespace="System.Web.Optimization" Assembly="System.Web.Optimization" %>
 <!DOCTYPE html>
 <html lang="en">
 <head runat="server">
@@ -24,6 +24,7 @@
             background-color: #007bff;
             border: none;
             border-radius: 0;
+            width: 100%;
         }
         .navbar .navbar-brand {
             color: white;
@@ -62,6 +63,21 @@
         }
         .navbar-toggle .icon-bar {
             background-color: white;
+        }
+
+        /* New styles for buttons */
+        .navbar .navbar-nav .btn-link {
+            color: crimson;
+            background-color: transparent;
+            border: none;
+            padding: 10px 15px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .navbar .navbar-nav .btn-link:hover {
+            background-color: #0056b3;
+            color: white;
         }
     </style>
 </head>
@@ -103,22 +119,26 @@
                         <li><a runat="server" href="~/About.aspx">About</a></li>
                         <li><a runat="server" href="~/Contact.aspx">Contact</a></li>
                     </ul>
-                    <asp:LoginView runat="server" ViewStateMode="Disabled">
-                        <AnonymousTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/SignUp.aspx">Register</a></li>
-                                <li><a runat="server" href="~/Login.aspx">Log in</a></li>
-                            </ul>
-                        </AnonymousTemplate>
-                        <LoggedInTemplate>
-                            <ul class="nav navbar-nav navbar-right">
-                                <li><a runat="server" href="~/Manage.aspx" title="Manage your account">Hello, <%: Context.User.Identity.GetUserName() %>!</a></li>
+                    <ul class="nav navbar-nav navbar-right">
+                        <asp:LoginView runat="server" ViewStateMode="Disabled">
+                            <AnonymousTemplate>
                                 <li>
-                                    <asp:LoginStatus runat="server" LogoutAction="Redirect" LogoutText="Log off" LogoutPageUrl="~/" OnLoggingOut="Unnamed_LoggingOut" />
+                                    <asp:Button ID="btnRegister" runat="server" Text="Register" OnClick="btnRegister_Click" CssClass="btn-link" />
                                 </li>
-                            </ul>
-                        </LoggedInTemplate>
-                    </asp:LoginView>
+                                <li>
+                                    <asp:Button ID="btnLogin" runat="server" Text="Log in" OnClick="btnLogin_Click" CssClass="btn-link" />
+                                </li>
+                            </AnonymousTemplate>
+                            <LoggedInTemplate>
+                                <li>
+                                    <asp:Button ID="btnManage" runat="server" Text="Manage" OnClick="btnManage_Click" CssClass="btn-link" />
+                                </li>
+                                <li>
+                                    <asp:Button ID="btnLogout" runat="server" Text="Log off" OnClick="btnLogout_Click" CssClass="btn-link" />
+                                </li>
+                            </LoggedInTemplate>
+                        </asp:LoginView>
+                    </ul>
                 </div>
             </div>
         </nav>

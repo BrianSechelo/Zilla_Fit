@@ -1,11 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Security.Claims;
-using System.Security.Principal;
 using System.Web;
 using System.Web.Security;
 using System.Web.UI;
-using System.Web.UI.WebControls;
 
 public partial class SiteMaster : MasterPage
 {
@@ -69,8 +65,24 @@ public partial class SiteMaster : MasterPage
 
     }
 
-    protected void Unnamed_LoggingOut(object sender, LoginCancelEventArgs e)
+    protected void btnRegister_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/SignUp.aspx");
+    }
+
+    protected void btnLogin_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Login.aspx");
+    }
+
+    protected void btnManage_Click(object sender, EventArgs e)
+    {
+        Response.Redirect("~/Manage.aspx");
+    }
+
+    protected void btnLogout_Click(object sender, EventArgs e)
     {
         Context.GetOwinContext().Authentication.SignOut();
+        Response.Redirect("~/");
     }
 }

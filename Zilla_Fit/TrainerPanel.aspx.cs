@@ -10,7 +10,7 @@ using System.IO;
 
 public partial class TrainerPanel : System.Web.UI.Page
 {
-    SqlConnection Con = new SqlConnection(@"Data Source=DESKTOP-IVHRL9V\SQLEXPRESS;Initial Catalog=fitnessdb;Integrated Security=True;Pooling=False;Encrypt=False");
+    SqlConnection Con = new SqlConnection(@"Server=sql.bsite.net\MSSQL2016;Database=briansechelo_;User Id=briansechelo_;password=Topverbalist7;Integrated Security=False");
 
     private void LoadFitnessTypes()
     {
@@ -96,6 +96,20 @@ public partial class TrainerPanel : System.Web.UI.Page
             LoadFitnessTypes();
 
         }
+        Button loginButton = FindControlRecursive(Master, "btnLogin") as Button;
+        Button rigesterButton = FindControlRecursive(Master, "btnRegister") as Button;
+        if (loginButton != null)
+        {
+            loginButton.Text = "Log Out";
+
+            rigesterButton.Visible = false;
+        }
+        else
+        {
+            // For debugging purposes
+            lblMessage.Text = "Login button not found!";
+            lblMessage.ForeColor = System.Drawing.Color.Red;
+        }
     }
 
     protected void btnUpdateProfileImage_Click(object sender, EventArgs e)
@@ -160,7 +174,7 @@ public partial class TrainerPanel : System.Web.UI.Page
             return; // If trainer ID is not found, return early
         }
 
-        string connectionString = @"Data Source=DESKTOP-IVHRL9V\SQLEXPRESS;Initial Catalog=fitnessdb;Integrated Security=True;Pooling=False;Encrypt=False";
+        string connectionString = @"Server=sql.bsite.net\MSSQL2016;Database=briansechelo_;User Id=briansechelo_;password=Topverbalist7;Integrated Security=False" ;
 
         try
         {
@@ -225,7 +239,7 @@ public partial class TrainerPanel : System.Web.UI.Page
         Button btn = (Button)sender;
         int fitnessTypeId = Convert.ToInt32(btn.CommandArgument);
 
-        string connectionString = @"Data Source=DESKTOP-IVHRL9V\SQLEXPRESS;Initial Catalog=fitnessdb;Integrated Security=True;Pooling=False;Encrypt=False";
+        string connectionString = @"Server=sql.bsite.net\MSSQL2016;Database=briansechelo_;User Id=briansechelo_;password=Topverbalist7;Integrated Security=False" ;
 
         try
         {
@@ -256,7 +270,16 @@ public partial class TrainerPanel : System.Web.UI.Page
             }
         }
     }
-
+    private Control FindControlRecursive(Control root, string id)
+    {
+        if (root.ID == id) return root;
+        foreach (Control control in root.Controls)
+        {
+            Control foundControl = FindControlRecursive(control, id);
+            if (foundControl != null) return foundControl;
+        }
+        return null;
+    }
     protected void rptFitnessTypes_ItemCommand(object source, RepeaterCommandEventArgs e)
     {
     }
